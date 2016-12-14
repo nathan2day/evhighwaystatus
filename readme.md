@@ -16,7 +16,7 @@ A number of features that the site currently provides to the EV community curren
 
 ## Code
 
-The majority of the site's functionality in written in JavaScript and can be found in the public/js/script.orig.js file.
+The majority of the site's functionality in written in JavaScript and can be found in the resources/assets/js/script.js file.
 
 ## Contributing
 
