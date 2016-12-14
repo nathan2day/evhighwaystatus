@@ -1,0 +1,15 @@
+<?php
+$targetchargers = [];
+array_push($targetchargers,"Extra Cambridge, A14, Boxforth, CambridgeCCS fast charge");
+array_push($targetchargers,"Welcome Break Newport Pagnell South, M1 Motorway Southbound, Jct 14/15, Newport PagnellCCS fast charge");
+array_push($targetchargers,"Welcome Break Newport Pagnell North, M1 Motorway Northbound, Jct 14/15, Newport PagnellCCS fast charge");
+array_push($targetchargers,"Welcome Break London Gateway, M1 Motorway, Jct 2/4, Mill Hill, LondonCCS fast charge");
+array_push($targetchargers,"IKEA Wembley, 2 Drury Way, North Circular RoadCCS fast charge");
+array_push($targetchargers,"Moto Heston East, M4 Motorway Eastbound, Jct 2/3, Phoenix Way, Heston, HounslowCCS fast charge");
+array_push($targetchargers,"Moto Heston West, M4 Motorway Westbound, Jct 2/3, Phoenix Way, Heston, HounslowCCS fast charge");
+array_push($targetchargers,"Starbucks, Newmarket, A14 Service Area South, Newmarket HeathCCS fast charge");
+array_push($targetchargers,"Extra Peterborough, A1(M), Jct 17, Great North Road, Haddon, PeterboroughCCS fast charge");
+array_push($targetchargers,"Extra Baldock, A1(M), Jct 10, Radwell, BaldockCCS fast charge");
+
+include("../../php/rss_template.php");
+?>

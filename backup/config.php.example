@@ -1,0 +1,8 @@
+<?php
+// Set database connection configuration
+return [
+	'servername' => "database_IP",
+	'username' => "database_username",
+	'password' => "database_password",
+	'dbname' => "database_name",
+];
