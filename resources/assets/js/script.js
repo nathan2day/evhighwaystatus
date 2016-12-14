@@ -6009,7 +6009,7 @@ var providersController = function(){
 
 			timeout = setTimeout(function(){
 				ajaxHandler({
-					url: "php/status_data.php",
+					url: "api/locations",
 					data: {providers: selectedProviders},
 					success: loadStatusData
 				});
@@ -6434,7 +6434,7 @@ function ajaxHandler(settings) {
 				xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 			}
 		},
-		data: ajaxData
+		data: settings.data
 	}).done(function(data,b,c){
 		settings.success(data);
 	}).fail(function(a,b,c){

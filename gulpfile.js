@@ -16,6 +16,11 @@ require('laravel-elixir-vue-2');
 elixir(mix => {
     
 mix.scripts([
+	'moment.js',
+	'alerts.js',
+	'lock.min.js',
+	'auth.js',
+	'sweetalert.min.js',
 	'script.js'
 ],'public/js/script.js');
 

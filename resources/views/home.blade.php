@@ -64,13 +64,10 @@
 	<link rel="stylesheet" href="css/w3.css"/>
 	<link rel="stylesheet" href="css/style.css"/>
 	<script src="https://use.fontawesome.com/112f0c1659.js"></script>
-	<script src="js/sweetalert.min.js?v=1"></script>
+	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery.mmenu/5.6.5/js/jquery.mmenu.all.min.js"></script>
-        <script src="js/lock.min.js"></script>
-        <script src="js/auth0-7.0.4.min.js"></script>
-        <script src="js/moment.js"></script>
     	<script src="js/script.js"></script>
 	<script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDwK9RMf6XoFyGXlAUDq07fIlR3YJhkLp0&libraries=places'></script>
 	<script  src="https://www.gstatic.com/charts/loader.js"></script>
