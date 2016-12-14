@@ -1,27 +1,27 @@
-# Laravel PHP Framework
+<p align="center"><a href="https://evhighwaystatus.co.uk" target="_blank"><img width="150" src="https://new.evhighwaystatus.co.uk/img/car-wide.jpg"></a></p>
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+## About
+The site [evhighwaystatus.co.uk](https://evhighwaystatus.co.uk) was created by Andrew Lees in 2015 to provide functionality that was sought when entering the EV world for the first time after purchasing a Nissan Leaf. The site aims to provide users with a simple, clear, easy to understand interface to all things related to travelling with an EV.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+> **Note** The site was developed over many months and was the result of a part-time hobby which was the catalyst for the learning of web development technologies from a knowledge base of zero. It therefore goes without saying that the coding philosophies and principles used throughout are likely sketchy at best. Over time this will be updated, but contributions are very much encouraged!
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+A number of features that the site currently provides to the EV community currently include:
+- Full-screen map showing pins representing chargers from (at present) 10 UK charge point providers.
+- Where available, the current status of the charge point.
+- Route planner supporting up to 7 waypoints.
+- Capability to take elevation variations in to account for routes.
+- Energy prediction driven charge stop suggestions, including % battery arrival and departure at stops.
+- Display, and tracking, of current location via GPS.
+- Fully smartphone optimised.
 
-## Official Documentation
+## Code
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+The majority of the site's functionality in written in JavaScript and can be found in the public/js/script.orig.js file.
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+As professional commitments have grown, and free time reduced, this site has been released as open-source software. This has been done to help reduce the burden of development and to ensure the site continues to be a continually updated resource for EV drivers, and one which allows other community members to contribute to making it even better.
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+The site source code is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
