@@ -845,10 +845,10 @@ function setUp(){
 	elementEventBinder.routeInputs($(".routeinput"));
 
 	$(".icon-link").prop("target","_blank").prop("href",function(index){
-		if (index == 0) {return;}
-		if (index == 1){
+		
+		if (index == 0){
 			return "https://www.facebook.com/EVHighwayStatus/";
-		} else if (index == 2) {
+		} else if (index == 1) {
 			return "https://twitter.com/EVHighwayMap";
 		} else {
 			return "https://plus.google.com/communities/108139006036148477833";
