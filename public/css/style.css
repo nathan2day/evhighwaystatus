@@ -1575,7 +1575,7 @@ button {
 #updated {
   position: absolute;
   z-index: 1;
-  top: calc(60%);
+  top: calc(100% - 40px);
   left: 7px;
   font-style: normal;
   font-size: 12px;
@@ -1585,7 +1585,7 @@ button {
 #icons {
   position: absolute;
   z-index: 1;
-  top: calc(82%);
+  top: calc(100% - 18px);
   left: 75px;
   font-style: normal;
   font-size: 10px;
@@ -1600,7 +1600,7 @@ button {
   position: absolute;
   bottom: 90px;
   width: 46px;
-  left: calc(53%);
+  left: calc(100% - 47px);
   z-index: 2;
 }
 .social-badge {
