@@ -1,7 +1,11 @@
 /node_modules
 /public/storage
 /vendor
+/public/js/script.min.js
 config.php
+/public/json
+/public/xml
+public/rss/user_inputs.txt
 /.idea
 Homestead.json
 Homestead.yaml

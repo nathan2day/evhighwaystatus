@@ -109,7 +109,7 @@ if (count($response) > 500){
 	echo "CYC: Success! ".count($response).' chargers updated.'.chr(10);
 		
 } else {
-	echo 'CYC: Update failed.'.chr(10);
+	echo "CYC: Update failed. {count($response) chargers returned.}".chr(10);
 }
 
 ?>

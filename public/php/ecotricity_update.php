@@ -25,7 +25,8 @@ function ecotricityUpdateOld(){
 	$sourcestring = file_get_contents('http://www.ecotricity.co.uk/for-the-road/our-electric-highway/');//
 
 	ecotricityUpdateNew($sourcestring);
-
+	
+	return true;
 	//only progress if file_get_contents is successful
 	if ($sourcestring === FALSE) {
 		return false;
