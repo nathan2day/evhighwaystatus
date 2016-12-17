@@ -39,7 +39,7 @@ class SendStatusTweet extends Command
      */
     public function handle()
     {
-        $tweet = $this->tweeter->tweetStatus($this->argument('provider'));
-	$this->info($tweet);
+        $tweet = $this->tweeter->sendStatusTweet($this->argument('provider'));
+        $this->info($tweet);
     }
 }
