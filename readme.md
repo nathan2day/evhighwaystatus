@@ -22,6 +22,8 @@ The majority of the site's functionality in written in JavaScript and can be fou
 
 As professional commitments have grown, and free time reduced, this site has been released as open-source software. This has been done to help reduce the burden of development and to ensure the site continues to be a continually updated resource for EV drivers, and one which allows other community members to contribute to making it even better.
 
+Please direct any contributions to the dev branch as we work on moving our back-end over to Laravel.
+
 ## License
 
 The site source code is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
