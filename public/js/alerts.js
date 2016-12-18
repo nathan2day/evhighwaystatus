@@ -13,10 +13,10 @@ $(document).ready(function(){
 		
 		var alerts = [
 		{
-			id: 1,
+			id: 2,
 			priority: "green",
-			title: "Ecotricity",
-			body: "We're happy to announce that you now have the option to see the same status information for the Ecotricity Electric Highway as you can on the app. To do so, go checkout the \"Networks\" menu and choose the new option. Like all good things though, we can't say exactly how long this will last, but rest assured we'll keep doing all we can to get EV drivers like you the data you need. Enjoy!"
+			title: "Open Source",
+			body: "Hi Folks. Just an update to let you know that we've decided to Open Source the site to grow and allow more contributions. Want to help? Find the repo over at <a href='https://github.com/jivemonkey2000/evhighwaystatus'>GitHub</a>. Thanks."
 		}
 		];
 
