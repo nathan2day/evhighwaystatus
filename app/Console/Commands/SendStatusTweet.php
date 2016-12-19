@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Handlers\Tweeter;
+use App\Repositories\ChargerRepository;
 
 class SendStatusTweet extends Command
 {
@@ -12,7 +13,7 @@ class SendStatusTweet extends Command
      *
      * @var string
      */
-    protected $signature = 'tweet:status {provider}';
+    protected $signature = 'tweet:status {provider} {--production=true}';
 
     /**
      * The console command description.
@@ -26,10 +27,11 @@ class SendStatusTweet extends Command
      *
      * @return void
      */
-    public function __construct(Tweeter $tweeter)
+    public function __construct(Tweeter $tweeter,ChargerRepository $chargers)
     {
         parent::__construct();
 	$this->tweeter = $tweeter;
+	$this->chargers = $chargers;
     }
 
     /**
@@ -39,7 +41,19 @@ class SendStatusTweet extends Command
      */
     public function handle()
     {
-        $tweet = $this->tweeter->sendStatusTweet($this->argument('provider'));
-        $this->info($tweet);
+	$tweet = $this->chargers->statusTweetFor($this->argument('provider'));
+
+	if ($this->option('production') == 'false') {
+		$success = true;
+	} else {
+        	$success = $this->tweeter->post($tweet);
+	}
+
+	if ($success) {
+        	$this->info($tweet);
+		$this->info('Tweet successfully posted.');
+	} else {
+		$this->error('Error posting tweet.');
+	}
     }
 }

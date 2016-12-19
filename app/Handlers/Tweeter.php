@@ -8,19 +8,21 @@ class Tweeter
 {
 	protected $chargers;
 
-	public function __construct(ChargerRepository $chargers)
+	public function __construct()
 	{
-		$this->chargers = $chargers;
+		$this->tweeter = app('TweetSender');
 	}
 
-	public function sendStatusTweet($provider)
+	public function post($status)
 	{
-		$tweet = $this->chargers->statusTweet($provider);
-		
-		return $tweet;
+		$this->tweeter->post("statuses/update",[
+			"status" => $status,
+		]);
+
+		if ($this->tweeter->getLastHttpCode() == 200) {
+    			return true;
+		} else {
+   			return false;
+		}
 	}
-
-	
-
-
 }

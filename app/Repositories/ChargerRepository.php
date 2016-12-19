@@ -1,19 +1,20 @@
 <?php namespace App\Repositories;
-
+use Illuminate\Support\Facades\DB;
 class ChargerRepository
 {
 	protected $provider;
 
-	public function statusTweet($provider)
+	public function statusTweetFor($provider)
 	{
 		$this->provider = $provider;
-
-		return $this->typeOverview('CCS')."\n".$this->typeOverview('CHAdeMO')."\n".$this->typeOverview('AC (tethered)');
+		$date = \Carbon\Carbon::now()->format('j M');
+		return "{$provider} on {$date}:\n".$this->typeOverview('CHAdeMO')."\n".$this->typeOverview('CCS')."\n".$this->typeOverview('AC (tethered)','AC')."\n#UKCharge";
 	}
 
-	private function typeOverview($type)
+	private function typeOverview($type, $nameOverride = null)
 	{
-		return "$type: {$this->offline($type)} offline, {$this->online($type)} online ({$this->percentOnline($type)}%).";
+		$name = isset($nameOverride) ? $nameOverride : $type;
+		return "$name: {$this->offline($type)} offline, {$this->online($type)} online ({$this->percentOnline($type)}%)";
 	}
 
 	private function percentOnline($type)
@@ -25,7 +26,7 @@ class ChargerRepository
 
 	private function online($type)
 	{
-		return $this->getCount($this->provider,$type,'online') + $this->getCount($this->provider,$type,'in session');
+		return $this->getCount($this->provider,$type,'online') + $this->getCount($this->provider,$type,'occupied');
 	}
 
 	private function offline($type)
@@ -48,5 +49,4 @@ class ChargerRepository
 	    ])->count();
 
     }
-	
 }
