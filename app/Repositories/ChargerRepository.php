@@ -1,5 +1,6 @@
 <?php namespace App\Repositories;
 use Illuminate\Support\Facades\DB;
+
 class ChargerRepository
 {
 	protected $provider;
@@ -37,6 +38,14 @@ class ChargerRepository
 	private function total($type)
 	{
 		return $this->online($type) + $this->offline($type);
+	}
+
+	public function forProvider($provider)
+	{
+		return DB::table('0_status')->where([
+			['provider','=', $provider],
+                       	['lastchecked','>',\Carbon\Carbon::now()->subHour(1)],
+            	])->get();
 	}
 
 	public function getCount($provider,$type,$status)
