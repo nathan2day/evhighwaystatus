@@ -18,6 +18,12 @@ class AppServiceProvider extends ServiceProvider
 	$this->app->singleton('TweetSender',function(){
 		return new TwitterOAuth(env('TWITTER_CONSUMER_KEY'),env('TWITTER_CONSUMER_SECRET'),env('TWITTER_ACCESS_TOKEN'),env('TWITTER_ACCESS_TOKEN_SECRET'));
 	});
+
+	//$this->app->singleton(\GuzzleHttp\Client::class, function(){
+	//	var_dump('binding');
+	//	return new \GuzzleHttp\Client(["base_uri"=>"https://secure.chargeyourcar.org.uk/map-api-iframe","timeout"=>5]);
+	//});
+
     }
 
     /**

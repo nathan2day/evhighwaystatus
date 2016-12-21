@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Charger extends Model
 {
     protected $fillable = [
+        'name',
         'lat',
         'lng',
     ];
