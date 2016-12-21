@@ -17,9 +17,9 @@ class StatusTweetError extends Notification
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($tweet)
     {
-        //
+        $this->tweet = $tweet;
     }
 
     /**
@@ -62,13 +62,10 @@ class StatusTweetError extends Notification
 
     public function toSlack($notifiable){
         return (new SlackMessage)
-	->error()
+            ->error()
+            ->content('A Tweet failed to send.')
             ->attachment(function ($attachment) {
-                    $attachment->title('Uh oh..')
-                               ->content("A Tweet failed to send.");
+                    $attachment->content($this->tweet);
             });
-
-
-
     }
 }

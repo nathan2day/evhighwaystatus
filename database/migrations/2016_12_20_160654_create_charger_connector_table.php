@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateConnectorsTable extends Migration
+class CreateChargerConnectorTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateConnectorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('connectors', function (Blueprint $table) {
+        Schema::create('charger_connector', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->decimal('power', 5, 2);
+            $table->integer('charger_id')->unsigned();
+            $table->integer('connector_id')->unsigned();
+            $table->string('status');
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ class CreateConnectorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('connectors');
+        Schema::dropIfExists('charger_connector');
     }
 }

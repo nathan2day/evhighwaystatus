@@ -13,7 +13,7 @@ class SendStatusTweet extends Command
      *
      * @var string
      */
-    protected $signature = 'tweet:status {provider} {--production=true}';
+    protected $signature = 'tweet:status {provider} {--production}';
 
     /**
      * The console command description.
@@ -42,18 +42,13 @@ class SendStatusTweet extends Command
     public function handle()
     {
 	$tweet = $this->chargers->statusTweetFor($this->argument('provider'));
-
-	if ($this->option('production') == 'false') {
-		$success = true;
-	} else {
-        	$success = $this->tweeter->post($tweet);
-	}
+        $success = $this->option('production') ? $this->tweeter->post($tweet) : true;
 
 	if ($success) {
-        	$this->info($tweet);
-		$this->info('Tweet successfully posted.');
+            $this->info($tweet);
+	    $this->info('Tweet successfully posted.');
 	} else {
-		$this->error('Error posting tweet.');
+	    $this->error('Error posting tweet.');
 	}
     }
 }

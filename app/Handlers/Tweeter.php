@@ -25,8 +25,8 @@ class Tweeter
 
 	public function testNotification()
 	{
-		$this->notify(new StatusTweetSent);
-		$this->notify(new StatusTweetError);
+		$this->notify(new StatusTweetSent('A successfull tweet'));
+		$this->notify(new StatusTweetError('A failed tweet'));
 	}
 	public function post($status)
 	{
@@ -35,10 +35,10 @@ class Tweeter
 		]);
 
 		if ($this->tweeter->getLastHttpCode() == 200) {
-			$this->notify(new StatusTweetSent);
+			$this->notify(new StatusTweetSent($status));
     			return true;
 		} else {
-			$this->notify(new StatusTweetError);
+			$this->notify(new StatusTweetError($status));
    			return false;
 		}
 	}

@@ -50,7 +50,8 @@ class ChargerRepository
 
 	public function getCount($provider,$type,$status)
     {
-	    return DB::table('0_status')->where([
+	    return DB::connection('evhws')
+                ->table('0_status')->where([
 	            ['provider','=', $provider],
 	            ['status'  ,'=', $status],
 	            ['type'    ,'=', $type],

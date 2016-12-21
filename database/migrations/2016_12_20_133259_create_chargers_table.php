@@ -15,6 +15,9 @@ class CreateChargersTable extends Migration
     {
         Schema::create('chargers', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('provider_id')->unsigned();
+            $table->decimal('lat', 20, 17);
+            $table->decimal('lng', 20, 17);
             $table->timestamps();
         });
     }

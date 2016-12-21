@@ -24,7 +24,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('tweet:status CYC')
+        $schedule->command('tweet:status CYC --production')
                  ->dailyAt('20:00');
     }
 

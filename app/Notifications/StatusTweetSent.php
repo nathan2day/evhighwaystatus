@@ -17,9 +17,9 @@ class StatusTweetSent extends Notification
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($tweet)
     {
-        //
+        $this->tweet = $tweet;
     }
 
     /**
@@ -63,9 +63,9 @@ class StatusTweetSent extends Notification
     public function toSlack($notifiable){
         return (new SlackMessage)
 	    ->success()
+            ->content('A Tweet was sent!')
 	    ->attachment(function ($attachment) {
-                    $attachment->title('Yippee!')
-                               ->content('A Tweet was sent successfully.');
+                    $attachment->content($this->tweet);
             });
     }
 }
