@@ -1,6 +1,5 @@
 <?php namespace App\Handlers;
 
-use Abraham\TwitterOAuth\TwitterOAuth;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\ChargerRepository;
 use Illuminate\Notifications\Notifiable;
