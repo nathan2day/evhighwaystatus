@@ -13,7 +13,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\SendStatusTweet::class
+        Commands\SendStatusTweet::class,
+        Commands\UpdateProviderData::class,
     ];
 
     /**
@@ -26,6 +27,9 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('tweet:status CYC --production')
                  ->dailyAt('20:00');
+
+        $schedule->command('providerdata:update')
+                 ->everyThirtyMinutes();
     }
 
     /**
