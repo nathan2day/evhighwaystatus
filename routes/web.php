@@ -15,8 +15,3 @@ Route::get('/', function () {
     return view('home');
 });
 
-
-Route::get('/test', function (App\ProviderStatusData\Cyc $cyc) {
-    $cyc->update();
-});
-

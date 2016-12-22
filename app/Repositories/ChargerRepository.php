@@ -1,18 +1,26 @@
 <?php namespace App\Repositories;
 use Illuminate\Support\Facades\DB;
 use App\Provider;
+use App\Connector;
+use App\Charger;
+
 class ChargerRepository
 {
 	protected $provider;
-	public function __construct(Provider $providers)
+
+	public function __construct(Provider $providers, Charger $chargers, Connector $connectors)
 	{
 		$this->providers = $providers;
+		$this->chargers = $chargers;
+		$this->connectors = $connectors;
 	}
+
 	public function providers()
 	{
 		return 	$this->providers;
 	}
-public function statusTweetFor($provider)
+
+	public function statusTweetFor($provider)
 	{
 		$this->provider = $provider;
 		$date = \Carbon\Carbon::now()->format('j M');

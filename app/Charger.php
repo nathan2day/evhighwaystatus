@@ -14,7 +14,7 @@ class Charger extends Model
 
     public function connectors()
     {
-       return $this->belongsToMany('App\Connector')->withPivot('id','status')->withTimestamps();
+       return $this->belongsToMany('App\Connector')->withPivot('id','status','position')->withTimestamps();
     }
 
     public function provider()
