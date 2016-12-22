@@ -57,50 +57,82 @@ class Fetcher
 
 	public function updateDatabase()
 	{
-		$locations = $this->parser->parse($this->response);
+		$this->locations = $this->parser->parse($this->response);
+		$this->provider = $this->getProvider();
+		$this->processLocations();
+	}
 
-		$provider = $this->chargers
-			->providers
-			->firstOrCreate([
-				'name' => $locations[0]->provider,
-				'url'  => $locations[0]->source['url'],
-			]);
+	/**
+	 * Process an array of provider locations.
+	 *
+	 */
+	private function processLocations()
+	{
+		foreach ($this->locations as $location) {
 
-		foreach ($locations as $location){
+			$charger = $this->getCharger($location);
 
-			$charger = $provider->chargers()
-				->firstOrCreate([
-					'name' => $location->name,
-					'lat'  => $location->lat,
-					'lng'  => $location->lng,
-				]);
+			foreach ($location->connectors as $position => $sourceConnector) {
 
-			foreach($location->connectors as $position => $connector){
-				
-				$connectorType = $this->chargers->connectors
-					->where('name',$connector->type['title'])
+				// Get the model associated with the current connector type
+				$connectorType = $this->chargers
+					->connectors
+					->where('name','=',$sourceConnector->type['title'])
 					->firstOrFail();
 
-				$connectorInDatabase = $charger->connectors()
-					//->wherePivot('position',$position)
+				// Get the connector for this charger
+				$connector = $charger->connectors()
 					->where('name',$connectorType->name)
+					->wherePivot('position',$position)
 					->first();
 
-				if ($connectorInDatabase) {
-					// Update it
-					$charger->connectors()
-						->updateExistingPivot($connectorInDatabase->pivot->id, [
-							'status'   => $connector->status
+				// If we have a result in $connector, we already have a record of this
+				// particular connector and can therefore update the status. If
+				// we don't, attach a new connector type to charger.
+				if ($connector) {
+					$connector->pivot
+						->update([
+							'status'   => $sourceConnector->status,
 						]);
 				} else {
-					// Attach it
 					$charger->connectors()
 						->attach($connectorType,[
-							'status'   => $connector->status,
+							'status'   => $sourceConnector->status,
 							'position' => $position,
 						]);
 				}
 			}
 		}
+	}
+
+	/**
+	 * Get the model associated with this set of locations.
+	 *
+	 * @return mixed
+	 */
+	private function getProvider() {
+		return $this->chargers
+			->providers
+			->firstOrCreate([
+				'name' => $this->locations[0]->provider,
+				'url'  => $this->locations[0]->source['url'],
+			]);
+	}
+
+	/**
+	 * Get the model associated with a particular location.
+	 *
+	 * @param $location
+	 * @return mixed
+	 */
+	private function getCharger($location)
+	{
+		return $this->provider
+			->chargers()
+			->firstOrCreate([
+				'name' => $location->name,
+				'lat'  => $location->lat,
+				'lng'  => $location->lng,
+			]);
 	}
 }

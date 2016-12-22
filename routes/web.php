@@ -15,3 +15,6 @@ Route::get('/', function () {
     return view('home');
 });
 
+Route::get('test', function(App\ProviderStatusData\Updater $updater){
+    $updater->run();
+});

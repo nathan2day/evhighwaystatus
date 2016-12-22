@@ -9,6 +9,7 @@ class Connector extends Model
     protected $fillable = [
         'name',
         'power',
+	'status',
     ];
 
     public function charger()

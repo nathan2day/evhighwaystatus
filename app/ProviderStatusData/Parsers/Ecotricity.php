@@ -1,4 +1,4 @@
-<?php namespace App\ProviderStatusData;
+<?php namespace App\ProviderStatusData\Parsers;
 
 use App\ProviderStatusData\Interfaces\Parser;
 
