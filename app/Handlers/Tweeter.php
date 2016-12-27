@@ -8,14 +8,14 @@ use App\Notifications\StatusTweetError;
 
 class Tweeter
 {
-       use Notifiable;
+    use Notifiable;
 
 	protected $chargers;
 
 	public function routeNotificationForSlack()
-        {
+    {
 	    return env('ADMIN_SLACK_URL');
-        }
+    }
 
 	public function __construct()
 	{
@@ -35,10 +35,10 @@ class Tweeter
 
 		if ($this->tweeter->getLastHttpCode() == 200) {
 			$this->notify(new StatusTweetSent($status));
-    			return true;
+			return true;
 		} else {
 			$this->notify(new StatusTweetError($status));
-   			return false;
+				return false;
 		}
 	}
 }
