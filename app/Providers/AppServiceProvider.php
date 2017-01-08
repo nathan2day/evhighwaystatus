@@ -3,10 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\DB;
 use Abraham\TwitterOAuth\TwitterOAuth;
 use Illuminate\Database\Eloquent\Relations\Pivot;
-use App\Charger;
+use App\Connector;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,18 +20,14 @@ class AppServiceProvider extends ServiceProvider
 		return new TwitterOAuth(env('TWITTER_CONSUMER_KEY'),env('TWITTER_CONSUMER_SECRET'),env('TWITTER_ACCESS_TOKEN'),env('TWITTER_ACCESS_TOKEN_SECRET'));
 	});
 
-	Pivot::updated(function($pivot){
-		$att = (object) $pivot->getAttributes();
+	Connector::updated(function($connector){
+		$att = (object) $connector->getAttributes();
 
-		$charger = Charger::find($att->charger_id);
+		$charger = $connector->charger;
 
-		$connector = $charger->connectors()
-			->wherePivot('position',$att->position)
-			->first();
+		$orig = (object) $connector->getOriginal();
 
-		$orig = (object) $pivot->getOriginal();
-
-		echo "{$charger->provider->name} $charger->name $connector->name was $orig->status and is now $att->status<br>";
+		echo "{$charger->provider->name} $charger->name ({$charger->id}) $connector->name ({$connector->position}) was {$orig->status} and is now {$att->status}<br>";
 
 	});
 

@@ -10,12 +10,11 @@ class Connector extends Model
         'name',
         'power',
 	'status',
+        'position',
     ];
 
     public function charger()
     {
-        // TODO limit to single charger a particular instance is linked to
-
-        return $this->belongsToMany('App\Charger');
+        return $this->belongsTo('App\Charger');
     }
 }

@@ -70,33 +70,28 @@ class Fetcher
 	{
 		foreach ($this->locations as $location) {
 
-			$charger = $this->getCharger($location);
-
 			foreach ($location->connectors as $position => $sourceConnector) {
 
-				// Get the model associated with the current connector type
-				$connectorType = $this->chargers
-					->connectors
-					->where('name','=',$sourceConnector->type['title'])
-					->firstOrFail();
-
+				$charger = $this->getCharger($location);
+				//$existing = $charger->connectors()->where('name',$sourceConnector->type['title'])->count();
+				//$position = $existing > 1 ? $position + 1 : $position; 
 				// Get the connector for this charger
 				$connector = $charger->connectors()
-					->where('name',$connectorType->name)
-					->wherePivot('position',$position)
+					->where('position',$position)
 					->first();
 
 				// If we have a result in $connector, we already have a record of this
 				// particular connector and can therefore update the status. If
 				// we don't, attach a new connector type to charger.
 				if ($connector) {
-					$connector->pivot
-						->update([
-							'status'   => $sourceConnector->status,
-						]);
+
+					$connector->update(['status' => $sourceConnector->status]);
+
 				} else {
 					$charger->connectors()
-						->attach($connectorType,[
+						->create([
+							'name'     => $sourceConnector->type['title'],
+							'power'	   => $sourceConnector->power,
 							'status'   => $sourceConnector->status,
 							'position' => $position,
 						]);

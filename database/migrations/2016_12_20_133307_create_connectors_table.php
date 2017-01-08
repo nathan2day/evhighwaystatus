@@ -14,9 +14,12 @@ class CreateConnectorsTable extends Migration
     public function up()
     {
         Schema::create('connectors', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('id')->unsigned();
+	    $table->integer('charger_id')->unsigned();
             $table->string('name');
-            $table->decimal('power', 5, 2);
+            $table->decimal('power', 5, 2)->unsigned();
+	    $table->string('status');
+	    $table->integer('position')->unsigned();
             $table->timestamps();
         });
     }
