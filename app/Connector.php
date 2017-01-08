@@ -17,4 +17,9 @@ class Connector extends Model
     {
         return $this->belongsTo('App\Charger');
     }
+
+    public function history()
+    {
+        return this->morphToMany('App\History','connector');
+    }
 }
