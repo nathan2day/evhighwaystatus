@@ -39,13 +39,15 @@ class Cyc implements Parser
 			$lat = floatval($thisLatLng[0]);
 			$lng = floatval($thisLatLng[1]);
 
-			$locationkey = foreach ($locations as $locationkey => $location) {
-				if ($location['lat'].$location['lng'] == $lat.$lng) {
-					return $locationkey;
-				}
-				return count($locations);
-			}
+			$locationkey = 0;
 
+			foreach ($locations as $lkey => $location) {
+				if ($location['lat'].$location['lng'] == $lat.$lng) {
+					$locationkey = $lkey;
+					break;
+				}
+				$locationkey =  count($locations);
+			}
 			// $matchingLocation = array_filter($locations, function ($existing, $key) use ($lat,$lng) {
 			// 	return $existing['lat'].$exising['lng'] == $lat.$lng;
 			// });
@@ -98,7 +100,9 @@ class Cyc implements Parser
 				}
 			}
 
-			$locations[$locationkey]["connectors"] = [];
+			if (!isset($locations[$locationkey]["connectors"])) {
+				$locations[$locationkey]["connectors"] = [];
+			}
 
 			foreach ($thisConnectors as $connectorIndex => $thisConnector) {
 				$connector = [];
@@ -167,10 +171,7 @@ class Cyc implements Parser
 						break;
 				}
 
-				if ($power > 20) {
-					array_push($locations[$locationkey]["connectors"],(object) $connector);
-				}
-
+				array_push($locations[$locationkey]["connectors"],(object) $connector);
 			}
 
 			// if ($thisStation["connectors"]){
@@ -178,6 +179,10 @@ class Cyc implements Parser
 			// }
 
 		}
+
+		$locations = array_map(function($value){
+			return (object) $value;
+		},$locations);
 
 		// If we have a 'good' number of locations, return them.
 		return count($locations) > 200 ? $locations :false;
