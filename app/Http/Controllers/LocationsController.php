@@ -16,8 +16,7 @@ class LocationsController extends Controller
     {
 		$providers = request()->input('providers');
 		$data = [];
-		$data['locations'] = $this->chargers->providers->with('connectors')->whereIn($providers)->get()->toArray();
-
+		$data['locations'] = \App\Charger::with(['provider','connectors'])->whereIn('provider_id',[2])->get()->toArray();		
 	return $data;
 
     }
