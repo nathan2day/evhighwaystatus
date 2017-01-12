@@ -13,12 +13,11 @@ class Polar implements Parser
 	 */
 	public function parse($HttpResponse)
 	{
-		$posts = json_decode($HttpResponse);
-
+		$posts = json_decode($HttpResponse,false)->posts;
+		//dd($posts);
 		$locations = [];
 
 		for ($x=0; $x < count($posts) ; $x++) { //for all of the posts
-			
 			$c = [];
 			$c["name"] = $posts[$x]->Address;
 			$c["postcode"] = $posts[$x]->Postcode;
@@ -92,5 +91,6 @@ class Polar implements Parser
 			
 		}	
 
-		return $locations
+		return $locations;
+	}
 }
