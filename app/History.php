@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class History extends Model
 {
-    $fillable = [
+    protected $fillable = [
     	'old',
     	'new',
     ];

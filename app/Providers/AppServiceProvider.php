@@ -33,7 +33,7 @@ class AppServiceProvider extends ServiceProvider
 		$orig = (object) $connector->getOriginal();
 
         $connector->history()->create([
-            'old' => orig->status,
+            'old' => $orig->status,
             'new' => $att->status,
         ]);
 
