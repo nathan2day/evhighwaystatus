@@ -20,6 +20,6 @@ class Connector extends Model
 
     public function history()
     {
-        return this->morphToMany('App\History','connector');
+        return $this->morphToMany('App\History','connector');
     }
 }
