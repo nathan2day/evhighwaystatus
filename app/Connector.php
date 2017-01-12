@@ -9,7 +9,7 @@ class Connector extends Model
     protected $fillable = [
         'name',
         'power',
-	'status',
+        'status',
         'position',
     ];
 

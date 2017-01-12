@@ -16,8 +16,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
 	$this->app->singleton('TweetSender',function(){
-		return new TwitterOAuth(env('TWITTER_CONSUMER_KEY'),env('TWITTER_CONSUMER_SECRET'),env('TWITTER_ACCESS_TOKEN'),env('TWITTER_ACCESS_TOKEN_SECRET'));
+		return new TwitterOAuth(
+            env('TWITTER_CONSUMER_KEY'),
+            env('TWITTER_CONSUMER_SECRET'),
+            env('TWITTER_ACCESS_TOKEN'),
+            env('TWITTER_ACCESS_TOKEN_SECRET'));
 	});
 
 	Connector::updated(function($connector){
@@ -26,6 +31,11 @@ class AppServiceProvider extends ServiceProvider
 		$charger = $connector->charger;
 
 		$orig = (object) $connector->getOriginal();
+
+        $connector->history()->create([
+            'old' => orig->status,
+            'new' => $att->status,
+        ]);
 
 		echo "{$charger->provider->name} $charger->name ({$charger->id}) $connector->name ({$connector->position}) was {$orig->status} and is now {$att->status}<br>";
 
