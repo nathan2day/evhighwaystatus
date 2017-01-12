@@ -24,6 +24,9 @@ class Updater
 
 		$this->fetcher->get("http://www.ecotricity.co.uk/for-the-road/our-electric-highway/")
 			->parseWith(new Parsers\Ecotricity);
+
+		$this->fetcher->get("https://polar-network.com/ajax/posts/")
+			->parseWith(new Parsers\Polar);
 	}
 
 }
