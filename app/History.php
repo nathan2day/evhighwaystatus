@@ -10,4 +10,9 @@ class History extends Model
     	'old',
     	'new',
     ];
+
+    public function connector()
+    {
+    	return $this->morphTo();
+    }
 }
