@@ -27,11 +27,7 @@ class Cyc implements Parser
 		}
 
 		foreach ($allStations as $key => $station) {
-			$thisStation = [];
-			$thisName = substr($station, strpos($station, "bubbleInfo_head") + 17);
-			$thisName = substr($thisName, 0, strpos($thisName, "</div>"));
 
-			$thisStation["name"] = $thisName;
 			$thisLatLng = substr($station, strpos($station, "LatLng(") + 6);
 			$thisLatLng = substr($thisLatLng, 0, strpos($thisLatLng, ")") + 1);
 			$thisLatLng = str_replace("(", "", $thisLatLng);
@@ -39,18 +35,41 @@ class Cyc implements Parser
 			$thisLatLng = str_replace("'", "", $thisLatLng);
 			$thisLatLng = str_replace(" ", "", $thisLatLng);
 			$thisLatLng = explode(",",$thisLatLng);
-			$thisStation["lat"] = floatval($thisLatLng[0]);
-			$thisStation["lng"] = floatval($thisLatLng[1]);
-			$thisStation["provider"] = "CYC";
-			$thisStation["provider_ocmid"] = 20;
-			$thisStation["source"]["name"] = "ChargeYourCar";
-			$thisStation["source"]["url"] = "http://chargeyourcar.org.uk/#map";
+
+			$lat = floatval($thisLatLng[0]);
+			$lng = floatval($thisLatLng[1]);
+
+			$locationkey = foreach ($locations as $locationkey => $location) {
+				if ($location['lat'].$location['lng'] == $lat.$lng) {
+					return $locationkey;
+				}
+				return count($locations);
+			}
+
+			// $matchingLocation = array_filter($locations, function ($existing, $key) use ($lat,$lng) {
+			// 	return $existing['lat'].$exising['lng'] == $lat.$lng;
+			// });
+
+			$locations[$locationkey]["lat"] = floatval($thisLatLng[0]);
+			$locations[$locationkey]["lng"] = floatval($thisLatLng[1]);
+
+			$thisName = substr($station, strpos($station, "bubbleInfo_head") + 17);
+			$thisName = substr($thisName, 0, strpos($thisName, "</div>"));
+
+			$locations[$locationkey]["name"] = $thisName;
+
+			
+
+			$locations[$locationkey]["provider"] = "CYC";
+			$locations[$locationkey]["provider_ocmid"] = 20;
+			$locations[$locationkey]["source"]["name"] = "ChargeYourCar";
+			$locations[$locationkey]["source"]["url"] = "http://chargeyourcar.org.uk/#map";
 			$thisPostCode = substr($station, strpos($station, "bubbleItemContentFullWidth"));
 			$thisPostCode = substr($thisPostCode,0 , strpos($thisPostCode, "</div></div>"));
 			$thisPostCode = explode("<span>",$thisPostCode);
 			$thisPostCode = $thisPostCode[count($thisPostCode)-1];
 			$thisPostCode = substr($thisPostCode, 0,strpos($thisPostCode,"<"));
-			$thisStation["postcode"] = $thisPostCode;
+			$locations[$locationkey]["postcode"] = $thisPostCode;
 			$thisChargerID = substr($station, strpos($station, "<div class='bubbleItemContent'>") + 31);
 			$thisChargerID = substr($thisChargerID, 0,strpos($thisChargerID,"</div>"));
 
@@ -58,14 +77,14 @@ class Cyc implements Parser
 				$thisChargerID = substr($thisChargerID, 0,strpos($thisChargerID,"<b>"));
 			}
 
-			$thisStation["chargerId"] = $thisChargerID;
+			$locations[$locationkey]["chargerId"] = $thisChargerID;
 			$thisTariff = substr($station, strpos($station, "Tariff"));
 			$thisTariff = substr($thisTariff, strpos($thisTariff, "Content") + 9);
 			$thisTariff = substr($thisTariff, 0,strpos($thisTariff,"</div>"));
 			$thisTariff = mb_convert_encoding($thisTariff,"UTF-8");
 
 
-			$thisStation["tariff"] = $thisTariff;
+			$locations[$locationkey]["tariff"] = $thisTariff;
 
 			$thisConnectors = substr($station, strpos($station, "var connectorsOutput") + 20);
 
@@ -79,7 +98,7 @@ class Cyc implements Parser
 				}
 			}
 
-			$thisStation["connectors"] = [];
+			$locations[$locationkey]["connectors"] = [];
 
 			foreach ($thisConnectors as $connectorIndex => $thisConnector) {
 				$connector = [];
@@ -149,14 +168,14 @@ class Cyc implements Parser
 				}
 
 				if ($power > 20) {
-					array_push($thisStation["connectors"],(object) $connector);
+					array_push($locations[$locationkey]["connectors"],(object) $connector);
 				}
 
 			}
 
-			if ($thisStation["connectors"]){
-				array_push($locations,(object) $thisStation );
-			}
+			// if ($thisStation["connectors"]){
+			// 	array_push($locations,(object) $thisStation );
+			// }
 
 		}
 
