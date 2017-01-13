@@ -29,7 +29,7 @@ class Kernel extends ConsoleKernel
                  ->dailyAt('20:00');
 
         $schedule->command('providerdata:update')
-                 ->everyThirtyMinutes();
+                 ->cron('*/15 * * * *');
     }
 
     /**

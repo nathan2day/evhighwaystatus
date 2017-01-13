@@ -32,7 +32,7 @@ class LocationsController extends Controller
 			$providerIds = Provider::whereIn('name',$providers)->pluck('id');
 		
 			$data['locations'] = $this->chargerTransformer->transformCollection(
-            			Charger::with(['provider','connectors'])
+            			Charger::with(['provider','connectors.type'])
                 			->whereIn('provider_id',$providerIds)
                 			->get()->all()	
         	);
@@ -45,7 +45,7 @@ class LocationsController extends Controller
     public function history(Charger $charger)
     {
         return $this->historyTransformer->transformCollection(
-            $charger->history()->with('trackable')->get()->all()
+            $charger->history()->with('trackable.type')->get()->all()
         );
     }
 }

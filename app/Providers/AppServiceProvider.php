@@ -28,24 +28,13 @@ class AppServiceProvider extends ServiceProvider
 	Connector::updated(function($connector){
 		$att = (object) $connector->getAttributes();
 
-		$charger = $connector->charger;
-
 		$orig = (object) $connector->getOriginal();
 
-        $connector->history()->create([
-            'old' => $orig->status,
-            'new' => $att->status,
-        ]);
-
-		echo "{$charger->provider->name} $charger->name ({$charger->id}) $connector->name ({$connector->position}) was {$orig->status} and is now {$att->status}<br>";
-
+		$connector->history()->create([
+		    'old' => $orig->status,
+		    'new' => $att->status,
+		]);
 	});
-
-	//$this->app->singleton(\GuzzleHttp\Client::class, function(){
-	//	var_dump('binding');
-	//	return new \GuzzleHttp\Client(["base_uri"=>"https://secure.chargeyourcar.org.uk/map-api-iframe","timeout"=>5]);
-	//});
-
     }
 
     /**

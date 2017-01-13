@@ -5553,7 +5553,7 @@ var showHistoryInfoWindow = function(){
 			// '<th>State</th>'+
 			// '</tr>'; 
 
-			if (activeMarker.chargerHistory !== false){
+			if (activeMarker.chargerHistory.length){
 
 				content += '<div class="w3-row">';
 

@@ -1,6 +1,7 @@
 <?php namespace App\ProviderStatusData;
 
 use App\Repositories\ChargerRepository;
+use App\Type;
 use App\ProviderStatusData\Interfaces\Parser;
 use \GuzzleHttp\Client;
 
@@ -95,7 +96,7 @@ class Fetcher
 							'power'	   => $sourceConnector->power,
 							'status'   => $sourceConnector->status,
 							'position' => $position,
-						]);
+						])->type()->sync([$sourceConnector->type['id']]);
 				}
 			}
 		}

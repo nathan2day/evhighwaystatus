@@ -9,11 +9,11 @@ class ConnectorTransformer extends Transformer
 		return [
 			'unique'		=> $connector->id,
 			'type'			=> [
-				'title' 	=> $connector->name,
-				'id'		=> $connector->typeid, // TODO
+				'title' 	=> count($connector->type) ? $connector->type[0]->name : 'unknown',
+				'id'		=> count($connector->type) ? $connector->type[0]->id : 0,
 			],
-			'power'			=> $connector->power,
-			'quantity'		=> 1, // TODO
+            'power'			=> count($connector->type) ? $connector->type[0]->power : 0,
+            'quantity'		=> 1, // TODO
 			'status'		=> $connector->status,
 		];
 	}

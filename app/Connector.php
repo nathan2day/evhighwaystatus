@@ -23,4 +23,9 @@ class Connector extends Model
     {
         return $this->morphMany('App\History','trackable');
     }
+
+    public function type()
+    {
+        return $this->belongsToMany('App\Type');
+    }
 }
