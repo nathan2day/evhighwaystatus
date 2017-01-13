@@ -5339,8 +5339,7 @@ function getChargerHistory(a){
 	};
 
 	ajaxHandler({
-		url: "php/charger_history.php",
-		data: j,
+		url: "api/locations/" + a->unique + "/history",
 		success: processChargerHistory
 	});
 

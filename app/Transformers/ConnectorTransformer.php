@@ -7,6 +7,7 @@ class ConnectorTransformer extends Transformer
 	public function transform($connector)
 	{
 		return [
+			'unique'		=> $connector->id,
 			'type'			=> [
 				'title' 	=> $connector->name,
 				'id'		=> $connector->typeid, // TODO

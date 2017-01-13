@@ -17,6 +17,11 @@ class Charger extends Model
        return $this->hasMany('App\Connector');
     }
 
+    public function history()
+    {
+        return $this->hasManyThrough('App\History', 'App\Connector');
+    }
+
     public function provider()
     {
         return $this->belongsTo('App\Provider');

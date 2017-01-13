@@ -18,3 +18,4 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:api');
 
 Route::post('/locations','LocationsController@getLocations');
+Route::post('/locations/{charger}/history','LocationsController@history');
