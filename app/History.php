@@ -11,7 +11,7 @@ class History extends Model
     	'new',
     ];
 
-    public function connector()
+    public function trackable()
     {
     	return $this->morphTo();
     }

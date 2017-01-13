@@ -4,7 +4,7 @@ namespace App\Transformers;
 
 abstract class Transformer
 {
-	public function transformCollection(array $items)
+	public function transformCollection($items)
 	{
 		return array_map([$this,'transform'], $items);
 	}

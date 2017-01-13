@@ -18,6 +18,7 @@ class ChargerTransformer extends Transformer
 		return [
 			'provider'		=> $charger->provider->name,
 			'name'			=> $charger->name,
+			'unique'		=> $charger->id,
 			'lat'			=> (float) $charger->lat,
 			'lng'			=> (float) $charger->lng,
 			'postcode'		=> $charger->postcode,

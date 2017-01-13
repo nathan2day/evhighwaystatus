@@ -6,15 +6,16 @@ use Illuminate\Http\Request;
 use App\Charger;
 use App\Provider;
 use App\Transformers\ChargerTransformer;
+use App\Transformers\HistoryTransformer;
 
 class LocationsController extends Controller
 {
     protected $chargerTransformer;
 
-    public function __construct(ChargerTransformer $chargerTransformer, HistoryTransformer $HistoryTransformer)
+    public function __construct(ChargerTransformer $chargerTransformer, HistoryTransformer $historyTransformer)
     {
          $this->chargerTransformer = $chargerTransformer;
-         $this->historyTransformer = $historyTransformer
+         $this->historyTransformer = $historyTransformer;
     }
 
     public function getLocations()
@@ -43,8 +44,8 @@ class LocationsController extends Controller
 
     public function history(Charger $charger)
     {
-        return $this->HistoryTransformer->transformCollection(
-            $charger->history,
+        return $this->historyTransformer->transformCollection(
+            $charger->history()->with('trackable')->get()->all()
         );
     }
 }

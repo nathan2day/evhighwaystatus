@@ -5339,7 +5339,7 @@ function getChargerHistory(a){
 	};
 
 	ajaxHandler({
-		url: "api/locations/" + a->unique + "/history",
+		url: "api/locations/" + a.info.unique + "/history",
 		success: processChargerHistory
 	});
 
@@ -5565,7 +5565,7 @@ var showHistoryInfoWindow = function(){
 
 						//format is 2016-04-01 14:30:24
 
-						var d = activeMarker.chargerHistory[i].date_time;
+						var d = activeMarker.chargerHistory[i].date_time.date;
 						var date = d.split(" ")[0];
 						var time = d.split(" ")[1];
 						var date = date.split("-");
