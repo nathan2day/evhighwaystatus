@@ -17,6 +17,7 @@ class CreateConnectorsTable extends Migration
             $table->increments('id')->unsigned();
 	    $table->integer('charger_id')->unsigned();
             $table->string('name');
+	    $table->integer('typeid')->unsigned();
             $table->decimal('power', 5, 2)->unsigned();
 	    $table->string('status');
 	    $table->integer('position')->unsigned();

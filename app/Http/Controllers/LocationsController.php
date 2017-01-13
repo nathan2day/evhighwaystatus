@@ -19,11 +19,18 @@ class LocationsController extends Controller
     {
 		$providers = request()->input('providers');
 		$data = [];
-		$data['locations'] = $this->transformer->transformCollection(
-            Charger::with(['provider','connectors'])
-                ->whereIn('provider_id',[2])
-                ->get()->all();	
-        );	
+
+		if (count($providers) == 0){
+			$data['locations'] = [];
+		} else {
+			$providerIds = \App\Provider::whereIn('name',$providers)->pluck('id');
+		
+			$data['locations'] = $this->chargerTransformer->transformCollection(
+            			Charger::with(['provider','connectors'])
+                			->whereIn('provider_id',$providerIds)
+                			->get()->all()	
+        		);
+		}	
 	   
        return $data;
 

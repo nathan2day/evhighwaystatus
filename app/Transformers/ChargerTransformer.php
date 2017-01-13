@@ -18,14 +18,14 @@ class ChargerTransformer extends Transformer
 		return [
 			'provider'		=> $charger->provider->name,
 			'name'			=> $charger->name,
-			'lat'			=> $charger->lat,
-			'lng'			=> $charger->lng,
+			'lat'			=> (float) $charger->lat,
+			'lng'			=> (float) $charger->lng,
 			'postcode'		=> $charger->postcode,
 			'source'		=> [
 				'name'		=> $charger->provider->name,
 				'url'		=> $charger->provider->url,
 			],
-			'connectors'	=> $this->connectorTransformer->transformCollection($charger->connectors);
+			'connectors'	=> $this->connectorTransformer->transformCollection($charger->connectors->all()),
 		];
 	}
 }

@@ -24,8 +24,8 @@ mix.scripts([
 	'script.js'
 ],'public/js/script.js');
 
-mix.less([
-	'style.less'
+mix.styles([
+	'style.css'
 ],'public/css/style.css');
 
 mix.styles([

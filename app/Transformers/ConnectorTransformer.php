@@ -9,10 +9,10 @@ class ConnectorTransformer extends Transformer
 		return [
 			'type'			=> [
 				'title' 	=> $connector->name,
-				'id'		=> 0 // TODO
+				'id'		=> $connector->typeid, // TODO
 			],
 			'power'			=> $connector->power,
-			'quantity'		=> 1 // TODO
+			'quantity'		=> 1, // TODO
 			'status'		=> $connector->status,
 		];
 	}

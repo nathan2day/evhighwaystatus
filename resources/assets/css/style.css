@@ -1662,9 +1662,9 @@ button{
 #updated {
 	position: absolute;
 	z-index: 1;
-	top: -webkit-calc(100% - 40px);
-    top: -moz-calc(100% - 40px);
-	top: calc(100% - 40px);
+	top: e("-webkit-calc(100% - 40px)");
+        top: e("-moz-calc(100% - 40px)");
+	top: e("calc(100% - 40px)");
 	left: 7px;
 	font-style: normal;
 	font-size: 12px;
@@ -1674,9 +1674,9 @@ button{
 #icons {
 	position: absolute;
 	z-index: 1;
-	top: -webkit-calc(100% - 18px);
-    top: -moz-calc(100% - 18px);
-	top: calc(100% - 18px);
+	top: e("-webkit-calc(100% - 18px)");
+        top: e("-moz-calc(100% - 18px)");
+	top: e("calc(100% - 18px)");
 	left: 75px;
 	font-style: normal;
 	font-size: 10px;
@@ -1689,10 +1689,10 @@ button{
 }
 
 .social-container{
-    position: absolute;
+    position: absolute; 	
     bottom: 90px;
     width: 46px;
-    left: calc(100% - 47px);
+    left: e("calc(100% - 47px)");
     z-index: 2;
 
 }
@@ -2880,20 +2880,20 @@ body.stop-scrolling {
 /* This file is automatically merged into sweet-alert.min.js through Gulp */
 /* Error icon */
 .sweet-alert .sa-icon.sa-error .sa-line.sa-left {
-  -ms-transform: rotate(45deg) \9; }
+e("-ms-transform: rotate(45deg)\9"); }
 
 .sweet-alert .sa-icon.sa-error .sa-line.sa-right {
-  -ms-transform: rotate(-45deg) \9; }
+ e("-ms-transform: rotate(-45deg)\9"); }
 
 /* Success icon */
 .sweet-alert .sa-icon.sa-success {
-  border-color: transparent\9; }
+  e("border-color: transparent\9"); }
 
 .sweet-alert .sa-icon.sa-success .sa-line.sa-tip {
-  -ms-transform: rotate(45deg) \9; }
+  e("-ms-transform: rotate(45deg)\9"); }
 
 .sweet-alert .sa-icon.sa-success .sa-line.sa-long {
-  -ms-transform: rotate(-45deg) \9; }
+  e("-ms-transform: rotate(-45deg)\9"); }
 
 /*!
  * Load Awesome v1.1.0 (http://github.danielcardoso.net/load-awesome/)
