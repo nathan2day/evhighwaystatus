@@ -26,13 +26,15 @@ class AppServiceProvider extends ServiceProvider
 	});
 
 	Connector::updated(function($connector){
-		$att = (object) $connector->getAttributes();
-
-		$orig = (object) $connector->getOriginal();
-
+		// Determine the previous and new status 
+		// for this connector
+		$newAttr = (object) $connector->getAttributes();
+		$origAttr = (object) $connector->getOriginal();
+                
+		// Save a new history for this connector
 		$connector->history()->create([
-		    'old' => $orig->status,
-		    'new' => $att->status,
+		    'old' => $origAttr->status,
+		    'new' => $newAttr->status,
 		]);
 	});
     }
