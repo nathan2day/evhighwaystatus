@@ -12,12 +12,12 @@ class TypesTableSeeder extends Seeder
      */
     public function run()
     {
-        Type::create(['name' => 'CHAdeMO',         'power' =>  50]);
-        Type::create(['name' => 'CCS',             'power' =>  50]);
-        Type::create(['name' => 'AC (tethered)',   'power' =>  50]);
-        Type::create(['name' => 'AC (socket)',     'power' =>   7]);    
-        Type::create(['name' => '13A 3-Pin',       'power' =>   3]);
-        Type::create(['name' => 'AC (medium)',     'power' =>  22]); 
-        Type::create(['name' => 'Tesla',           'power' => 120]);
+        Type::create(['name' => 'CHAdeMO']);
+        Type::create(['name' => 'CCS']);
+        Type::create(['name' => 'AC (tethered)']);
+        Type::create(['name' => 'AC (socket)']);    
+        Type::create(['name' => '13A 3-Pin']);
+        Type::create(['name' => 'AC (medium)']); 
+        Type::create(['name' => 'Tesla']);
     }
 }

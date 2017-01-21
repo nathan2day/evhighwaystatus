@@ -90,9 +90,7 @@ class Fetcher
 
 				} else {
 					$charger->connectors()
-						->create([
-							'name'     => $sourceConnector->type['title'],
-							'typeid'   => $sourceConnector->type['id'],
+						->create([						
 							'power'	   => $sourceConnector->power,
 							'status'   => $sourceConnector->status,
 							'position' => $position,

@@ -12,7 +12,7 @@ class ConnectorTransformer extends Transformer
 				'title' 	=> count($connector->type) ? $connector->type[0]->name : 'unknown',
 				'id'		=> count($connector->type) ? $connector->type[0]->id : 0,
 			],
-            'power'			=> count($connector->type) ? $connector->type[0]->power : 0,
+            'power'			=> $connector->power,
             'quantity'		=> 1, // TODO
 			'status'		=> $connector->status,
 		];

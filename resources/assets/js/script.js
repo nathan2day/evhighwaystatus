@@ -5721,6 +5721,9 @@ var connectorsController = function (){
 
 			return currentConnectors;
 		},
+        getIdArray: function(){
+            return connectors;
+        },
 		clear: function(){
 			connectors = [];
 		}
@@ -6008,7 +6011,7 @@ var providersController = function(){
 			timeout = setTimeout(function(){
 				ajaxHandler({
 					url: "api/locations",
-					data: {providers: selectedProviders},
+					data: {providers: selectedProviders, connectors: connectorsController.getIdArray()},
 					success: loadStatusData
 				});
 				//submitJSONToServer("php/status_data.php",JSON.stringify({providers: selectedProviders}),loadStatusData);

@@ -19,3 +19,6 @@ Route::get('/user', function (Request $request) {
 
 Route::post('/locations','LocationsController@getLocations');
 Route::post('/locations/{charger}/history','LocationsController@history');
+Route::post('/locations/test',function() {
+    var_dump(request()->input('providers'));
+});

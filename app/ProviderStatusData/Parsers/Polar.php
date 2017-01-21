@@ -18,12 +18,37 @@ class Polar implements Parser
 		$locations = [];
 
 		for ($x=0; $x < count($posts) ; $x++) { //for all of the posts
-			$c = [];
-			$c["name"] = $posts[$x]->Address;
-			$c["postcode"] = $posts[$x]->Postcode;
-			$c["lat"] = $posts[$x]->Latitude;
-			$c["lng"] = $posts[$x]->Longitude;
-			$c["sockets"] = [];
+            $c = [];
+
+            $lat = $posts[$x]->Latitude;
+            $lng = $posts[$x]->Longitude;
+            
+            $locationkey = 0;
+            foreach ($locations as $lkey => $location) {
+               
+                 if ($location['lat'].$location['lng'] == $lat.$lng) {
+                     $locationkey = $lkey;
+                     
+                     break;
+                 }
+                 $locationkey =  count($locations);
+            }             
+
+			$locations[$locationkey]["name"] =  $posts[$x]->Address;;
+			$locations[$locationkey]["provider"] = "Polar";
+			$locations[$locationkey]["provider_openid"] = 32;
+			$locations[$locationkey]["lat"] = floatval($posts[$x]->Latitude);
+			$locations[$locationkey]["lng"] = floatval($posts[$x]->Longitude);
+			$locations[$locationkey]["postcode"] = $posts[$x]->Postcode;
+			$locations[$locationkey]["source"]["url"] = "http://polar-network.com/map/";
+			$locations[$locationkey]["source"]["name"] = "Polar";
+            
+            if (!isset($locations[$locationkey]["connectors"]))
+            {
+                $locations[$locationkey]["connectors"] = [];
+            }
+
+			
 
 			for ($i = 0; $i < count($posts[$x]->Sockets) ; $i++) {
 
@@ -72,25 +97,14 @@ class Polar implements Parser
 				}
 				$s["power"] = $posts[$x]->Sockets[$i]->KW;
 				
-				$c["sockets"][$i] = (object) $s;
+				$locations[$locationkey]["connectors"][] = (object) $s;
 			}
 
-			$thislocation = [];
-
-			$thislocation["name"] = $c["name"];
-			$thislocation["provider"] = "Polar";
-			$thislocation["provider_openid"] = 32;
-			$thislocation["lat"] = floatval($c["lat"]);
-			$thislocation["lng"] = floatval($c["lng"]);
-			$thislocation["postcode"] = $c["postcode"];
-			$thislocation["source"]["url"] = "http://polar-network.com/map/";
-			$thislocation["source"]["name"] = "Polar";
-			$thislocation["connectors"] = $c["sockets"];
-
-			array_push($locations, (object) $thislocation);
 			
 		}	
-
+        $locations = array_map(function($value){
+            return (object) $value;
+        },$locations);
 		return $locations;
 	}
 }

@@ -14,8 +14,8 @@ class CreateChargersTable extends Migration
     public function up()
     {
         Schema::create('chargers', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('provider_id')->unsigned();
+            $table->increments('id')->index();
+            $table->integer('provider_id')->unsigned()->index();
             $table->string('name')->nullable();
             $table->decimal('lat', 20, 17);
             $table->decimal('lng', 20, 17);

@@ -20,7 +20,7 @@ class Charger extends Model
     public function history()
     {
         return $this->hasManyThrough('App\History', 'App\Connector', 'charger_id', 'trackable_id')
-		    ->where('trackable_type','App\Connector');
+                    ->where('trackable_type','App\Connector');
     }
 
     public function provider()

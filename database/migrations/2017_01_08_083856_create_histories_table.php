@@ -15,10 +15,10 @@ class CreateHistoriesTable extends Migration
     {
         Schema::create('histories', function (Blueprint $table) {
             $table->increments('id')->unsigned();
-            $table->string('old');
+            $table->string('old')->nullable();
             $table->string('new');
-            $table->integer('trackable_id')->unsigned();
-            $table->string('trackable_type');
+            $table->integer('trackable_id')->unsigned()->index();
+            $table->string('trackable_type')->index();
             $table->timestamps();
         });
     }

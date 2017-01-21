@@ -15,8 +15,8 @@ class CreateConnectorTypeTable extends Migration
     {
         Schema::create('connector_type', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('connector_id')->unsigned();
-            $table->integer('type_id')->unsigned();
+            $table->integer('connector_id')->unsigned()->index();
+            $table->integer('type_id')->unsigned()->index();
         });
     }
 

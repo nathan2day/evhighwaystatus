@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Connector extends Model
 {
     protected $fillable = [
-        'name',
-	'typeid',
+        'typeid',
         'power',
         'status',
         'position',
