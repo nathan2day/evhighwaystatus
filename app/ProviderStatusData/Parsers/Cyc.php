@@ -39,7 +39,7 @@ class Cyc implements Parser
 			$lat = floatval($thisLatLng[0]);
 			$lng = floatval($thisLatLng[1]);
 
-			$locationkey = 0;
+			$locationkey = (string)$lat.(string)$lng;
 
 			foreach ($locations as $lkey => $location) {
 				if ($location['lat'].$location['lng'] == $lat.$lng) {

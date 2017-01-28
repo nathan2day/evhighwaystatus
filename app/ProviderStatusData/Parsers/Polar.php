@@ -23,16 +23,17 @@ class Polar implements Parser
             $lat = $posts[$x]->Latitude;
             $lng = $posts[$x]->Longitude;
             
-            $locationkey = 0;
-            foreach ($locations as $lkey => $location) {
-               
-                 if ($location['lat'].$location['lng'] == $lat.$lng) {
-                     $locationkey = $lkey;
-                     
-                     break;
-                 }
-                 $locationkey =  count($locations);
-            }             
+            $locationkey = (string)$lat.(string)$lng;
+            
+            //foreach ($locations as $lkey => $location) {
+            //   
+            //    if ($location['lat'].$location['lng'] == $lat.$lng) {
+            //         $locationkey = $lkey;
+            //         
+            //         break;
+            //     }
+            //     $locationkey =  count($locations);
+            //}             
 
 			$locations[$locationkey]["name"] =  $posts[$x]->Address;;
 			$locations[$locationkey]["provider"] = "Polar";
@@ -105,6 +106,8 @@ class Polar implements Parser
         $locations = array_map(function($value){
             return (object) $value;
         },$locations);
+        
+        
 		return $locations;
 	}
 }

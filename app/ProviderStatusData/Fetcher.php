@@ -109,8 +109,8 @@ class Fetcher
 		return $this->chargers
 			->providers
 			->firstOrCreate([
-				'name' => $this->locations[0]->provider,
-				'url'  => $this->locations[0]->source['url'],
+				'name' => $this->locations[array_keys($this->locations)[0]]->provider,
+				'url'  => $this->locations[array_keys($this->locations)[0]]->source['url'],
 			]);
 	}
 

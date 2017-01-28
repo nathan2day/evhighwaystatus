@@ -23,7 +23,7 @@ class LocationsController extends Controller
     {
 		$providers = request()->input('providers');
         $lowPower  = (bool) request()->input('lowpower');
-
+        
 		$data = [
             'status'    => 'Success', // TODO
             'locations' => [],

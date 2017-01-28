@@ -6011,7 +6011,7 @@ var providersController = function(){
 			timeout = setTimeout(function(){
 				ajaxHandler({
 					url: "api/locations",
-					data: {providers: selectedProviders, connectors: connectorsController.getIdArray()},
+					data: {providers: selectedProviders, lowpower: false},
 					success: loadStatusData
 				});
 				//submitJSONToServer("php/status_data.php",JSON.stringify({providers: selectedProviders}),loadStatusData);
