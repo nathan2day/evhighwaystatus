@@ -9,6 +9,7 @@ class Provider extends Model
     protected $fillable = [
         'name',
         'url',
+        'ocm_id',
     ];
 
     public function chargers()

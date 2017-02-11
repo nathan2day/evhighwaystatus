@@ -1,4 +1,5 @@
 <?php namespace App\Repositories;
+use App\Type;
 use Illuminate\Support\Facades\DB;
 use App\Provider;
 use App\Connector;
@@ -6,16 +7,55 @@ use App\Charger;
 
 class ChargerRepository
 {
-	protected $provider;
 
-	public function __construct(Provider $providers, Charger $chargers, Connector $connectors)
+	public $provider;
+
+    /**
+     * @var Provider $providers
+     */
+	public $providers;
+
+    /**
+     * @var Charger $chargers
+     */
+	public $chargers;
+
+    /**
+     * @var Connector $connectors
+     */
+	public $connectors;
+
+	public function __construct(Provider $providers,
+                                Charger $chargers,
+                                Connector $connectors,
+                                Type $types)
 	{
-		$this->providers = $providers;
-		$this->chargers = $chargers;
+
+		$this->providers  = $providers;
+		$this->chargers   = $chargers;
 		$this->connectors = $connectors;
+		$this->types = $types;
 	}
 
-	public function providers()
+    /**
+     * Return an array of charger ids that have connectors above
+     * the given threshold.
+     *
+     * @param $powerThreshold
+     * @return mixed
+     */
+    public function chargerIdsAbovePower($powerThreshold)
+    {
+        return $this->connectors->where('power','>',$powerThreshold)
+            ->distinct('charger_id')
+            ->pluck('charger_id')
+            ->all();
+    }
+
+    /**
+     * Tidy-up for early stuff below here..
+     */
+    public function providers()
 	{
 		return 	$this->providers;
 	}

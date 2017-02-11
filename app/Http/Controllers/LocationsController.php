@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\ChargerRepository;
+use DB;
 use Illuminate\Http\Request;
 use App\Charger;
 use App\Provider;
@@ -12,65 +14,74 @@ use App\Transformers\HistoryTransformer;
 class LocationsController extends Controller
 {
     protected $chargerTransformer;
+    protected $historyTransformer;
 
-    public function __construct(ChargerTransformer $chargerTransformer, HistoryTransformer $historyTransformer)
+    /**
+     * @var Request $request
+     */
+    private $request;
+
+    /**
+     * @var ChargerRepository $chargerRepository
+     */
+    private $chargerRepository;
+
+    /**
+     * LocationsController constructor - inject dependencies.
+     *
+     * @param ChargerRepository $chargerRepository
+     * @param ChargerTransformer $chargerTransformer
+     * @param HistoryTransformer $historyTransformer
+     * @param Request $request
+     */
+    public function __construct(ChargerRepository $chargerRepository,
+                                ChargerTransformer $chargerTransformer,
+                                HistoryTransformer $historyTransformer,
+                                Request $request)
     {
-         $this->chargerTransformer = $chargerTransformer;
-         $this->historyTransformer = $historyTransformer;
+        $this->chargerRepository = $chargerRepository;
+        $this->chargerTransformer = $chargerTransformer;
+        $this->historyTransformer = $historyTransformer;
+        $this->request = $request;
     }
 
     public function getLocations()
     {
-		$providers = request()->input('providers');
-        $lowPower  = (bool) request()->input('lowpower');
-        
-		$data = [
+		$providers = $this->request->input('providers');
+        $lowPower  = $this->request->input('lowpower') === 'true';
+
+        $powerThreshold = $lowPower ? 0 : 21;
+
+        // Skeleton of JSON response.
+		$response = [
             'status'    => 'Success', // TODO
             'locations' => [],
+            'providers' => $providers,
         ];
 
-		if (count($providers)) {
+		// If no providers were defined, return empty response.
+		if (!count($providers))
+        {
+            return response()->json($response);
+        }
+        
+        $chargerIdsToReturn = $this->chargerRepository->chargerIdsAbovePower($powerThreshold);
 
-			$providerIds =  Provider::whereIn('name',$providers)->pluck('id');
-            $timestart = \Carbon\Carbon::now();
+        $response['locations'] = $this->chargerTransformer->transformCollection(
+            Charger::whereIn('provider_id',$providers)
+                ->find($chargerIdsToReturn)
+                ->load('provider','connectors.type')
+                ->all()
+        );
             
-            if ($lowPower)
-            {
-                $chargerIdsToReturn = \DB::table('connectors')
-                                    ->where('power','>',0)
-                                    ->distinct('charger_id')
-                                    ->pluck('charger_id')
-                                    ->all();               
-            }
-            
-            if (!$lowPower)
-            {
-                $chargerIdsToReturn = \DB::table('connectors')
-                                    ->where('power','>',21)
-                                    ->distinct('charger_id')
-                                    ->pluck('charger_id')
-                                    ->all();
-            }
-            
-            $chargerCollection =  Charger::whereIn('provider_id',$providerIds)
-                                            ->find($chargerIdsToReturn )
-                                            ->load('provider','connectors.type')
-                                            ->all();
-
-            $collectionTime = \Carbon\Carbon::now()->diffInSeconds($timestart);
-            $collectEnd = \Carbon\Carbon::now();
-            $data['locations'] = $this->chargerTransformer->transformCollection($chargerCollection);
-            
-		}	
-	   $data['stats'] = ['collect'=>$collectionTime, 'load'=>\Carbon\Carbon::now()->diffInSeconds($collectEnd)];
-       return $data;
+        return response()->json($response);
 
     }
 
     public function history(Charger $charger)
     {
         return $this->historyTransformer->transformCollection(
-            $charger->history()->with('trackable.type')->get()->all()
+            $charger->history()->with('trackable.type')->latest()->get()->all()
         );
     }
 }

@@ -11,10 +11,19 @@
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', 'HomeController@index');
+
+
 
 Route::get('test', function(App\ProviderStatusData\Updater $updater){
     $updater->run();
+});
+
+Route::post('heatmyleaf', function(\App\Utilities\HeatMyLeaf $heatMyLeaf){
+    $response = $heatMyLeaf->with(
+        request()->input('username'),
+        request()->input('password')
+    )->perform('battery');
+
+    return response()->json($response);
 });

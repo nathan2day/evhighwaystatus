@@ -19,6 +19,7 @@ class CreateConnectorsTable extends Migration
             $table->decimal('power', 5, 2)->unsigned();
             $table->string('status');
             $table->integer('position')->unsigned();
+            $table->integer('quantity')->unsigned();
             $table->timestamps();
         });
     }

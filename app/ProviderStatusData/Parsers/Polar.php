@@ -18,22 +18,11 @@ class Polar implements Parser
 		$locations = [];
 
 		for ($x=0; $x < count($posts) ; $x++) { //for all of the posts
-            $c = [];
 
             $lat = $posts[$x]->Latitude;
             $lng = $posts[$x]->Longitude;
             
             $locationkey = (string)$lat.(string)$lng;
-            
-            //foreach ($locations as $lkey => $location) {
-            //   
-            //    if ($location['lat'].$location['lng'] == $lat.$lng) {
-            //         $locationkey = $lkey;
-            //         
-            //         break;
-            //     }
-            //     $locationkey =  count($locations);
-            //}             
 
 			$locations[$locationkey]["name"] =  $posts[$x]->Address;;
 			$locations[$locationkey]["provider"] = "Polar";

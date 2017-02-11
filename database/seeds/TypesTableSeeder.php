@@ -17,7 +17,7 @@ class TypesTableSeeder extends Seeder
         Type::create(['name' => 'AC (tethered)']);
         Type::create(['name' => 'AC (socket)']);    
         Type::create(['name' => '13A 3-Pin']);
-        Type::create(['name' => 'AC (medium)']); 
-        Type::create(['name' => 'Tesla']);
+        Type::create(['name' => 'Tesla SC']);
+        Type::create(['name' => 'Tesla Dest.']);
     }
 }

@@ -15,4 +15,5 @@ class History extends Model
     {
     	return $this->morphTo();
     }
+
 }

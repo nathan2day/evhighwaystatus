@@ -1,32 +1,34 @@
 <?php namespace App\ProviderStatusData;
 
+use App\ProviderStatusData\Fetchers\Cpg;
+use App\ProviderStatusData\Fetchers\Cyc;
+use App\ProviderStatusData\Fetchers\EcarNi;
+use App\ProviderStatusData\Fetchers\Ecotricity;
+use App\ProviderStatusData\Fetchers\Engenie;
+use App\ProviderStatusData\Fetchers\Esbie;
+use App\ProviderStatusData\Fetchers\Nissan;
+use App\ProviderStatusData\Fetchers\Podpoint;
+use App\ProviderStatusData\Fetchers\Polar;
+use App\ProviderStatusData\Fetchers\Tesla;
+
 class Updater
 {
-	/**
-	 * @var \App\ProviderStatusData\Fetcher
-	 */
-	private $fetcher;
-
-	/**
-	 * Our Fetcher class
-	 *
-	 * @param \App\ProviderStatusData\Fetcher $fetcher
-	 */
-	public function __construct(Fetcher $fetcher)
-	{
-		$this->fetcher = $fetcher;
-	}
-
 	public function run()
 	{
-		$this->fetcher->get("https://secure.chargeyourcar.org.uk/map-api-iframe")
-			->parseWith(new Parsers\Cyc);
-
-		$this->fetcher->get("http://www.ecotricity.co.uk/for-the-road/our-electric-highway/")
-			->parseWith(new Parsers\Ecotricity);
-
-		$this->fetcher->get("https://polar-network.com/ajax/posts/")
-			->parseWith(new Parsers\Polar);
+        collect([
+            new Cpg(),
+            new Cyc(),
+            new EcarNi(),
+            new Ecotricity(),
+            new Engenie(),
+            new Esbie(),
+            new Nissan(),
+            new Podpoint(),
+            new Polar(),
+            new Tesla(),
+        ])->each(function($fetcher){
+            $fetcher->run();
+        });
 	}
 
 }

@@ -63,7 +63,7 @@ class Cyc implements Parser
 			
 
 			$locations[$locationkey]["provider"] = "CYC";
-			$locations[$locationkey]["provider_ocmid"] = 20;
+			$locations[$locationkey]["provider_openid"] = 20;
 			$locations[$locationkey]["source"]["name"] = "ChargeYourCar";
 			$locations[$locationkey]["source"]["url"] = "http://chargeyourcar.org.uk/#map";
 			$thisPostCode = substr($station, strpos($station, "bubbleItemContentFullWidth"));

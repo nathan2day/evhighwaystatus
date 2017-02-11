@@ -17,6 +17,7 @@ class CreateProvidersTable extends Migration
             $table->increments('id')->index();
             $table->string('name');
             $table->string('url');
+            $table->integer('ocm_id')->unsigned();
             $table->timestamps();
         });
     }

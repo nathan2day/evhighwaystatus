@@ -18,7 +18,8 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:api');
 
 Route::post('/locations','LocationsController@getLocations');
+
 Route::post('/locations/{charger}/history','LocationsController@history');
-Route::post('/locations/test',function() {
-    var_dump(request()->input('providers'));
-});
+
+Route::post('/autocomplete','AutoCompleteController@query');
+

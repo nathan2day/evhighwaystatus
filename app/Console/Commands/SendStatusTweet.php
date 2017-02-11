@@ -22,16 +22,20 @@ class SendStatusTweet extends Command
      */
     protected $description = 'Send out a status tweet for the given provider';
 
+    private $chargers;
+    private $tweeter;
+
     /**
      * Create a new command instance.
      *
-     * @return void
+     * @param Tweeter $tweeter
+     * @param ChargerRepository $chargers
      */
     public function __construct(Tweeter $tweeter,ChargerRepository $chargers)
     {
         parent::__construct();
-	$this->tweeter = $tweeter;
-	$this->chargers = $chargers;
+	    $this->tweeter = $tweeter;
+	    $this->chargers = $chargers;
     }
 
     /**
@@ -41,14 +45,24 @@ class SendStatusTweet extends Command
      */
     public function handle()
     {
-	$tweet = $this->chargers->statusTweetFor($this->argument('provider'));
+        if (app()->environment() !== 'production')
+        {
+            $this->info('Oops! Tweets can only be sent during production.');
+            return;
+        }
+
+	    $tweet = $this->chargers->statusTweetFor(
+	        $this->argument('provider')
+        );
+
         $success = $this->option('production') ? $this->tweeter->post($tweet) : true;
 
-	if ($success) {
+        if ($success) {
+            $this->info('Tweet successfully posted:');
             $this->info($tweet);
-	    $this->info('Tweet successfully posted.');
-	} else {
-	    $this->error('Error posting tweet.');
-	}
+            return;
+        }
+
+        $this->error('Error posting tweet.');
     }
 }

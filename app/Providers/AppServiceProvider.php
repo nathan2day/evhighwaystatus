@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use GuzzleHttp\Client;
 use Illuminate\Support\ServiceProvider;
 use Abraham\TwitterOAuth\TwitterOAuth;
 use Illuminate\Database\Eloquent\Relations\Pivot;
@@ -23,6 +24,14 @@ class AppServiceProvider extends ServiceProvider
                 env('TWITTER_CONSUMER_SECRET'),
                 env('TWITTER_ACCESS_TOKEN'),
                 env('TWITTER_ACCESS_TOKEN_SECRET'));
+        });
+
+        $this->app->singleton(Client::class, function(){
+            return new Client([
+                'headers' => [
+                    'User-Agent' => 'EVHighwayStatus.co.uk',
+                ],
+            ]);
         });
 
         Connector::updated(function($connector){
