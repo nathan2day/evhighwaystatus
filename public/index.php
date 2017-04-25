@@ -372,6 +372,17 @@ if (strpos($_SERVER['HTTP_HOST'],'eta.') === false){
 			<p id="rss-clear" onclick="rssClear()">Clear</p>
 		</div>
 
+		<div class="w3-modal" id="full-history">
+			<div class="w3-modal-content w3-animate-top">
+				<header class="w3-container">
+					<span class="w3-closebtn">&times;</span>
+					<h2 class="about-heading">Extended Charger History</h2>
+				</header>
+				<div class="full-history-display">
+				</div>
+			</div>
+		</div>
+
 		<div class="w3-modal" id="about-menu">
 			<div class="w3-modal-content w3-animate-top">
 			

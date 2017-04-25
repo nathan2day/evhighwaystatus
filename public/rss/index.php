@@ -5,7 +5,7 @@ session_start();
 
 $_SESSION["validated"] = true;
 
-if ($_SERVER["HTTP_X_FORWARDED_PROTO"] === "http") && strpos($_SERVER['HTTP_HOST'],'eta.') === false) {
+if (($_SERVER["HTTP_X_FORWARDED_PROTO"] === "http") && strpos($_SERVER['HTTP_HOST'],'eta.') === false) {
 	$redirect = "https://".$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"];
 	header("Location: ".$redirect);
 	exit();

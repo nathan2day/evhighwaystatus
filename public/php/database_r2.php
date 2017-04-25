@@ -216,7 +216,7 @@ function getChargerHistory($charger){
 		$table = "0_history";
 	}
 
-	$query = "SELECT * FROM ".$table." WHERE provider = '".$charger["provider"]."' AND lat ='".$charger["lat"]."' AND lng ='".$charger["lng"]."' ORDER BY date_time DESC LIMIT 20" ;
+	$query = "SELECT * FROM ".$table." WHERE provider = '".$charger["provider"]."' AND lat ='".$charger["lat"]."' AND lng ='".$charger["lng"]."' ORDER BY date_time DESC LIMIT " .$charger["limit"];
 
 	$result = $conn->query($query);
 

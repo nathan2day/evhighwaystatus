@@ -202,7 +202,7 @@ if ($_SERVER["HTTP_X_FORWARDED_PROTO"] === "http" && strpos($_SERVER['HTTP_HOST'
 			<div class="button-cont">
 				<button type="submit">Register</button>
 				<i id="loading" class="fa fa-refresh fa-spin fa-fw "></i>
-			</div
+			</div>
 
 
 		</form>

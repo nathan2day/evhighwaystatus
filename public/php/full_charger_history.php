@@ -15,7 +15,7 @@ if (!isset($_SESSION["validated"])){
 }
 
 $location = json_decode(stripslashes(file_get_contents("php://input")),true);
-$location["limit"] = 20;
+$location["limit"] = 8000;
 
 $results = getChargerHistory($location);
 

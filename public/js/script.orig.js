@@ -5329,6 +5329,85 @@ function addMarker(location,direction) {
     allmarkers.push(marker);
 }
 
+function getFullChargerHistory(){
+	var a = activeMarker;
+	var p = a.info.provider;
+	var lat = a.info.lat;
+	var lng = a.info.lng;
+	var j = {
+		provider: p,
+		lat: lat,
+		lng: lng
+	};
+
+	ajaxHandler({
+		url: "php/full_charger_history.php",
+		data: j,
+		success: processFullChargerHistory
+	});
+
+	//submitJSONToServer("php/charger_history.php",JSON.stringify(j),processChargerHistory);
+}
+
+function processFullChargerHistory(result){
+	var a = result;
+
+	var content =
+		// '<div class = "charger-history">'+
+		'<div class="charger-history-content">';
+
+
+	// +
+	// '<tr>'+
+	// '<th>Date</th>'+
+	// '<th>Connector</th>'+
+	// '<th>State</th>'+
+	// '</tr>';
+
+	if (a !== false){
+
+		content += '<div class="w3-row">';
+
+		for (var i = 0; i < a.length; i++) {
+
+
+			if (a.indexOf(a[i].type) < 0){
+				content += '<div class="w3-col s4">';
+
+				//format is 2016-04-01 14:30:24
+
+				var d = a[i].date_time;
+				var date = d.split(" ")[0];
+				var time = d.split(" ")[1];
+				var date = date.split("-");
+				var time = time.split(":");
+
+				content += date[2] + ' ' + (getActualMonth(Number(date[1])-1)) + ' ' + date[0].substring(2,4) + ' ' + time[0] + ":" + time[1]	;
+				content += '</div>';
+
+				content += '<div class="w3-col s4">';
+
+				content += a[i].type;
+				content += '</div>';
+
+				content += '<div class="w3-col s4 w3-text-' + statusColour(a[i].new_status) + '">';
+
+				content += a[i].new_status;
+				content += '</div>';
+			}
+
+		};
+
+		content += '</div>';
+	} else {
+		content += '<div class="w3-col s12">Looks like we don'+String.fromCharCode(39)+'t have any historical data yet..</div>';
+	}
+
+	content+= "</div>";
+	$(".full-history-display")[0].html(content);
+	$("#full-history").show();
+}
+
 function getChargerHistory(a){
 	var p = a.info.provider;
 	var lat = a.info.lat;
@@ -5544,7 +5623,8 @@ var showHistoryInfoWindow = function(){
 		    
 			var content = 
 			// '<div class = "charger-history">'+
-			'<h5 style="min-width:300px">Status History</h5>'+
+			'<h5 style="min-width:300px">Status History ('+
+			'<span onclick="activeMarker.getFullChargerHistory()">Full</span>)</h5>' +
 			'<div class="charger-history-content">';
 
 			
